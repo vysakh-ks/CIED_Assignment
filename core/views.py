@@ -273,8 +273,8 @@ class SalesReportView(APIView):
             return Response({"error": "No billings found for the given date range."}, status=404)
 
         report = billings.values('staff__id', 'staff__name').annotate(
-            total_sales=Count('id'),
-            total_revenue=Sum('total_price')
+            staff_total_sales=Count('id'),
+            staff_total_revenue=Sum('total_price')
         )
         total_sales = Bills.objects.aggregate(
             total_sales=Count('id'),
